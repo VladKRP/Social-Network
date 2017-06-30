@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<SocialMedia.Models.Friend>
+@using PagedList.Mvc;
+@using Microsoft.AspNet.Identity;
+@{
+    var currentUserId = User.Identity.GetUserId();
+    ViewBag.Title = "Друзья";
+}
+<div class="row">
+    <div class="col-sm-offset-2 col-sm-8 marginTop">
+        <div class="friendPageNavigation">
+            <a href="@Url.Action("Index")" class="btn btn-default volumeStyle">Друзья</a>
+            <a href="@Url.Action("IncomingRequests")" class="btn btn-default volumeStyle">Заявки в друзья</a>
+            <a href="@Url.Action("OutgoingRequests")" class="btn btn-default volumeStyle">Исходящие заявки</a>
+        </div>
+        <div class="volumeStyle">
+            <table class="table">
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        @if (currentUserId == item.UserId)
+                        {
+                            <td>
+                                @if (item.UserFriend.ImageData != null)
+                    {
+                                    <img class="userPhotoCircleStyle" src="@Url.Action("GetImage","User", new {userId = item.UserFriendId})" />
+                                }
+                                else
+                                {
+                                    <img class="userPhotoCircleStyle" src="~/Content/Images/User/Avatar/UserPhotoSmallSize.jpg" />
+                                }
+                            </td>
+
+                            <td class="col-xs-12 col-sm-8">
+                                <strong>
+                                    <a href=@Url.Action("Details", "User", new { id = item.UserFriendId }) title="Просмотр пользователя">
+                                        @Html.DisplayFor(modelItem => item.UserFriend.FirstName)
+                                        @Html.DisplayFor(modelItem => item.UserFriend.LastName)
+                                    </a>
+                                </strong>
+                                <div class="customIcon">
+                                    <a class="visible-xs" data-toggle="modal" href="@Url.Action("Create","UserMessages", new {id = item.Id })"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                    <a href=@Url.Action("Delete",new { id = item.Id })><i class="fa fa-user-times  visible-xs" aria-hidden="true"></i></a>
+                                </div>
+
+                            </td>
+
+
+                            <td class="text-right">
+                                <a class="btn btn-default volumeStyle hidden-xs" href="@Url.Action("Create","UserMessages", new {id = item.Id })">Отправить сообщение</a>
+                                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "btn btn-default hidden-xs volumeStyle marginTop4px" })
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @if (item.User.ImageData != null)
+                    {
+                                    <img class="userPhotoCircleStyle" src="@Url.Action("GetImage","User", new {userId = item.UserId})" />
+                                }
+                                else
+                                {
+                                    <img class="userPhotoCircleStyle" src="~/Content/Images/User/Avatar/UserPhotoSmallSize.jpg" />
+                                }
+                            </td>
+
+                            <td class="col-xs-12 col-sm-8">
+                                <strong>
+                                    <a href=@Url.Action("Details", "User", new { id = item.UserId }) title="Просмотр пользователя">
+                                        @Html.DisplayFor(modelItem => item.User.FirstName)
+                                        @Html.DisplayFor(modelItem => item.User.LastName)
+                                    </a>
+                                </strong>
+                                <div class="customIcon">
+                                    <a class="visible-xs" href="@Url.Action("Create","UserMessages", new {id = item.UserId })"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                    <a href=@Url.Action("Delete",new { id = item.Id })><i class="fa fa-user-times visible-xs" aria-hidden="true"></i></a>
+                                </div>
+                            </td>
+
+                            <td class="text-right">
+                                <a class="btn btn-default volumeStyle hidden-xs" href="@Url.Action("Create","UserMessages", new {id = item.UserId })">Отправить сообщение</a>
+                                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "btn btn-default hidden-xs volumeStyle marginTop4px" })
+                            </td>
+
+                        }
+
+                    </tr>
+                }
+            </table>
+        </div>
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+    </div>
+</div>

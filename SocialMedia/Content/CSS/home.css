@@ -1,0 +1,57 @@
+
+.backgroundImage-1{
+   height:30em;
+   background:url(../Images/Backgrounds/HomePageBG1.jpg) 20% 80%;
+}
+
+.backgroundImage-1 h1{
+    margin-top:15%;
+}
+
+.backgroundImage-2{
+    height:30em;
+    background:url(../Images/Backgrounds/HomePageBG2.jpg);
+    background-size: cover;
+}
+
+.backgroundImage-2 h2{
+    margin-top:3em;
+    margin-right:2em;
+}
+
+.backgroundImage-3{
+    height:30em;
+    background:url(../Images/Backgrounds/HomePageBG3.jpg);
+    background-size: cover;
+}
+
+.backgroundImage-3 h2{
+    margin-top:10%;
+    margin-bottom:5%;
+    color:#D5D4D0;
+}
+
+.backgroundImage-3 li{
+    background-color:rgba(20, 20, 40,0.8);
+    border-color:rgba(20, 20, 40,0.9);
+}
+
+.backgroundImage-3 li:hover{
+    background-color:rgba(20, 40, 40,0.8);
+    border-color:rgba(20, 20, 40,0.9);
+}
+
+.backgroundImage-3 li a{
+    color:rgba(220,240,260,0.9);
+}
+
+.backgroundImage-1, .backgroundImage-2, .backgroundImage-3{
+    border-top:2px solid #D5D4D0;
+    border-bottom:2px solid #D5D4D0;
+    color:rgba(220,240,260,0.9);
+}
+
+body{
+    padding-bottom:0rem;
+}
+

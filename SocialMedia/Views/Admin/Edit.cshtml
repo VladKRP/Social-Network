@@ -1,0 +1,91 @@
+﻿@model SocialMedia.Models.ApplicationUser
+@{
+    ViewBag.Title = "Редактирование пользователя";
+}
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8  marginTop">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="volumeStyle">
+                <div class="form-horizontal col-xs-offset-1 col-xs-12">
+                    <h3 class="col-sm-offset-3 col-sm-8">Редактирование пользователя @Model.FirstName  @Model.LastName</h3>
+                    <hr />
+                    <br />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FirstName, "Имя", htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-8">
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LastName, "Фамилия", htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-8">
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Age, "Возраст", htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-8">
+                            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Country, "Страна", htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-8">
+                            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Gender, "Пол", new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-8">
+                            @Html.RadioButtonFor(model => model.Gender, "женский")
+                            <span>женский</span>
+                            @Html.RadioButtonFor(model => model.Gender, "мужской")
+                            <span>мужской</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, "E-mail", htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-8">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.RegistrDate)
+                        @Html.HiddenFor(model => model.PasswordHash)
+                        @Html.HiddenFor(model => model.SecurityStamp)
+                        @Html.HiddenFor(model => model.ImageData)
+                        @Html.HiddenFor(model => model.ImageMimeType)
+                        @Html.HiddenFor(model => model.UserName)
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-6">
+                            <input type="submit" value="Сохранить" class="btn btn-default volumeStyle" />
+                            @Html.ActionLink("Вернуться к списку", "Index", null, new { @class = "btn btn-default volumeStyle" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

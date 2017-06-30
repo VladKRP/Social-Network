@@ -1,0 +1,76 @@
+﻿@model SocialMedia.Models.ApplicationUser
+@{
+    ViewBag.Title = "Просмотр пользователя";
+}
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 marginTop">
+        <div class="volumeStyle">
+            <h4 class="col-sm-offset-1">Пользователь</h4>
+            <hr />
+            <dl class="dl-horizontal col-xs-offset-1 col-xs-12">
+                <dt>
+                    Имя:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
+
+                <dt>
+                    Фамилия:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
+
+                <dt>
+                    E-mail:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+
+                <dt>
+                    Возраст:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Age)
+                </dd>
+
+                <dt>
+                    Страна:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Country)
+                </dd>
+
+                <dt>
+                    Пол:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Gender)
+                </dd>
+
+                <dt>
+                    Дата регистрации:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RegistrDate)
+                </dd>
+
+            </dl>
+            <p class="col-sm-offset-1">
+                @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }, new { @class = "btn btn-default volumeStyle" })
+                @Html.ActionLink("Вернуться к списку", "Index", null, new { @class = "btn btn-default volumeStyle" })
+            </p>
+        </div>
+
+    </div>
+</div>

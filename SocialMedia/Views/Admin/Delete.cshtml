@@ -1,0 +1,82 @@
+﻿@model SocialMedia.Models.ApplicationUser
+@{
+    ViewBag.Title = "Удаление пользователя";
+}
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10 marginTop">
+        <h3>Вы действительно хотите удалить пользователя?</h3>
+        <div class="volumeStyle">
+            <h4 class="col-sm-offset-1">Пользователь</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Age)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Age)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Country)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Country)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Gender)
+                </dd>
+
+            </dl>
+        </div>
+        <br />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Удалить" class="btn btn-default volumeStyle" />
+                @Html.ActionLink("Вернуться к списку пользователей", "Index", null, new { @class = "btn btn-default volumeStyle" })
+            </div>
+        }
+
+    </div>
+</div>

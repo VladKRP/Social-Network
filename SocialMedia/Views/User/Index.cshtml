@@ -1,0 +1,168 @@
+﻿@model SocialMedia.Models.ApplicationUser
+@using Microsoft.AspNet.Identity;
+@{
+    string currentUserId = User.Identity.GetUserId();
+    string UserFullName = Model.FirstName + " " + Model.LastName;
+    ViewBag.Title = UserFullName;
+}
+
+<div class="row">
+        <header class="userPageBGLine col-xs-12 col-sm-12">
+               <div class="col-xs-offset-2 col-xs-8 col-sm-offset-1 col-sm-3">
+                   @if (Model.ImageData != null)
+                   {
+                       <img class="userPhoto volumeStyle" src="@Url.Action("GetImage","User", new {userId = Model.Id})" />
+                   }
+                   else
+                   {
+                       <img class="userPhoto volumeStyle" src="~/Content/Images/User/Avatar/UserPhoto.jpg" />
+                   }
+
+                   @if (Model.Id == currentUserId)
+                   {
+                       <p><a class="btn btn-default btn-sm volumeStyle buttonUnderUserPhoto" data-toggle="modal" data-target=".bootsrapmodal">Изменить фото</a></p>
+                   }
+                   else
+                   {
+                        <p><a class="btn btn-default btn-sm volumeStyle buttonUnderUserPhoto" data-toggle="modal" data-target="#messageForm">Отправить сообщение</a></p>
+                   }
+                    @using (Html.BeginForm("ChangeUserPhoto", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                   <div class="modal fade bootsrapmodal">
+                      
+                           <div class="modal-dialog">
+                               <div class="modal-content customPopup">
+                                   <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                           <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       <b>Изменить фото пользователя</b>
+                                   </div>
+                                   <div class="modal-body">
+                                           <label>
+                                               <span class="hidden-xs">Выберите файл</span>
+                                               <input type="file" name="Image" class="btn btn-default hidden-xs volumeStyle"  />
+                                               <input type="file" name="Image" class="visible-xs" />
+                                           </label>
+                                   </div>
+                                   <div class="modal-footer">
+                                       <input type="submit" value="Сохранить" class="btn btn-default volumeStyle" />
+                                   </div>
+                               </div>                    
+                           </div>
+                   </div>
+                    }
+                   @using (Html.BeginForm("Create", "UserMessages", FormMethod.Post))
+                   {
+                       <div class="modal fade" id="messageForm">
+
+                           <div class="modal-dialog">
+                               <div class="modal-content customPopup">
+                                   <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                           <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       <b>Новое сообщение</b>
+                                   </div>
+                                   <div class="modal-body">
+                                       <b>Отправить сообщение пользователю @Model.FirstName @Model.LastName</b>
+                                       @Html.Hidden("view",3)
+                                       @Html.Hidden("receiverId", Model.Id)
+                                       <textarea name="messageText" class="form-control volumeStyle marginTop" placeholder="Введите текст сообщения" rows="4"></textarea>
+                                   </div>
+                                   <div class="modal-footer">
+                                       <input type="submit" value="Отправить" class="btn btn-default volumeStyle" />
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   }
+               </div>
+                <div class="col-sm-6 hidden-xs">
+                    <h3>@UserFullName</h3>
+                    <hr />
+                    <dl class="dl-horizontal">
+
+                        <dt>Возраст:</dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Age)
+                        </dd>
+
+
+                        <dt>Страна:</dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Country)
+                        </dd>
+
+                        <dt>Пол:</dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Gender)
+                        </dd>
+
+                    </dl>
+                </div>  
+        </header>
+        <section class="user-info visible-xs">
+            <div class="volumeStyle paddingLeft">
+                <h3>@UserFullName</h3>
+                <hr />
+                <dl class="dl-horizontal hidden-sm">
+
+                    <dt>Возраст:</dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Age)
+                    </dd>
+
+
+                    <dt>Страна:</dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Country)
+                    </dd>
+
+                    <dt>Пол:</dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Gender)
+                    </dd>
+
+                </dl>
+            </div> 
+        </section>
+       
+        <section class="userWall col-xs-12  col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 marginTop">
+            @if (Model.Id == currentUserId)
+            {
+                <div>
+                    @using (Html.BeginForm("Create", "UserWallPosts", FormMethod.Post, new { @class = " form-inline" }))
+                    {
+                        <textarea class="form-control volumeStyle" name="postText" rows="1" placeholder="Введите текст"></textarea>
+                        <input type="submit" value="Сохранить" class="btn btn-default volumeStyle" />
+                    }
+                </div>
+               
+            }
+           
+            @foreach (var wallPost in Model.UserWallPosts.OrderByDescending(u => u.PostedDate))
+            {
+                <br />
+                <div class="col-sm-12 userPost volumeStyle">
+                    <span class="col-xs-10 col-sm-11"><b>@wallPost.User.FirstName @wallPost.User.LastName</b></span>
+                    <span class="pull-right">
+                        @*@using (Html.BeginForm("Delete", "UserWallPosts", new {id = wallPost.Id },FormMethod.Post))
+                        {
+                            <input type="submit" class="fa fa-times" value="" />
+                        }*@
+                        <a href="@Url.Action("Delete", "UserWallPosts", new { id = wallPost.Id })"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </span>
+                    <hr />
+                    <p class="paddingLeft">@wallPost.Text</p>
+                    <hr />
+                    <span class="customDateTextSize">@wallPost.PostedDate</span>
+                </div>      
+                        }
+        </section>
+ </div>
+
+
+

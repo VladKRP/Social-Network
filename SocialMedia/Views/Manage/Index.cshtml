@@ -1,0 +1,23 @@
+﻿ @model SocialMedia.Models.IndexViewModel
+@{
+    ViewBag.Title = "Управление";
+}
+
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div class="col-sm-offset-2 col-sm-8 volumeStyle marginTop" >  
+    <br />
+    <h2>@ViewBag.Title</h2>
+    <h4>Изменение параметров учетной записи</h4>
+    <hr />
+    <dl class="dl-horizontal col-sm-12">
+        <dt>Редактирование:</dt>
+        <dd>
+            @Html.ActionLink("Изменить", "Edit", null, new {@class = "btn btn-defaul volumeStyle" })
+        </dd>
+        <dt class="marginTop4px">Пароль:</dt>
+        <dd class="marginTop4px">
+             @Html.ActionLink("Смена пароля", "ChangePassword", null, new { @class = "btn btn-defaul volumeStyle" })
+        </dd>
+    </dl>
+</div>

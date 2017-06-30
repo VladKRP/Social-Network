@@ -1,0 +1,35 @@
+﻿@model PagedList.IPagedList<SocialMedia.Models.ApplicationUser>
+@using PagedList.Mvc;
+
+<div class="volumeStyle">
+    <table class="table">
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Details", new { id = item.Id })">
+                        <b>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </b>
+                </a>
+            </td>
+            <td class="hidden-xs">
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+            <th class="hidden-xs">
+                @Html.DisplayFor(model => item.RegistrDate)
+            </th>
+
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.Id }, new { @class = "btn btn-default volumeStyle" })
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "btn btn-default volumeStyle" })
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+ 

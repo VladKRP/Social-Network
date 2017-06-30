@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Админ панель";
+}
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10 marginTop">
+        <h4>@Html.ActionLink("Создать нового пользователя", "Create", null, new { @class = "btn btn-default volumeStyle" })</h4>
+        <div class="form-inline">
+            @using (Ajax.BeginForm("GetPeopleList", new AjaxOptions { UpdateTargetId = "peopleList", Url = Url.Action("GetPeopleList") }))
+            {
+                <p>
+                    @Html.TextBox("SearchString", null, new { @class = "form-control volumeStyle" })
+                    <input class="btn btn-default volumeStyle" type="submit" value="Поиск" />
+                </p>
+            }
+        </div>
+        <div id="peopleList">
+            @Html.Action("GetPeopleList");
+        </div>
+
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

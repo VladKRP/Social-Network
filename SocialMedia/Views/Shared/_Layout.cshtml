@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link type="text/css" rel="stylesheet" href="~/Content/CSS/font-awesome-4.7.0/css/font-awesome.min.css"/>
+
+</head>
+<body>
+    <div class="container-fluid">
+            <header class="col-sm-12 col-xs-12" id="pageHeader">
+                <ul class="nav navbar-nav navButtons col-sm-2 col-xs-2">
+                    <li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <a href=@Url.Action("Index", "User")><i class="fa fa-ravelry" aria-hidden="true"></i></a>
+                        }
+                        else
+                        {
+                            <a href=@Url.Action("Index","Home")><i class="fa fa-ravelry" aria-hidden="true"></i></a>
+                        }
+                    </li>
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+            </header>
+            <div id="pageContent" class="col-xs-12 col-sm-12">
+                @RenderBody()
+            </div>
+            <footer id="pageFooter" class="col-xs-12 col-sm-12">
+                        @if (User.IsInRole("admin"))
+                        {
+                            @Html.ActionLink("Админ панель", "Index", "Admin")
+                        }
+                     <a href=@Url.Action("Index", "Manage") title="Настройки"><i class="fa fa-cog visible-xs" aria-hidden="true"></i></a>
+                    <span>&copy;@DateTime.Now.Year Social</span>
+            </footer>
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+</html>

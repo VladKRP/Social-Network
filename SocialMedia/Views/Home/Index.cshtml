@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<head>
+    <link rel="stylesheet" href="../../Content/CSS/home.css" />
+    <title>SiteName</title>
+</head>
+
+        <div class="row">
+            <div class="backgroundImage-1 text-center col-xs-12 col-sm-12">
+                <h1>SiteName</h1>
+                <h2>Добро пожаловать на SiteName.</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="backgroundImage-2 text-right col-xs-12 col-sm-12">
+                <h2>Находите знакомства</h2>
+                <h2>Общайтесь</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="backgroundImage-3 text-center col-xs-12 col-sm-12">
+                <div class="row">
+                    <h2>Делитесь впечатлениями со своими друзьями</h2>
+                    <ul>
+                        <li class="btn btn-default">@Html.ActionLink("Войти", "Login", "Account")</li>
+                        <li class="btn btn-default">@Html.ActionLink("Присоединиться", "Register", "Account")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+

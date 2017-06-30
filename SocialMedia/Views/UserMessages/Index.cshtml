@@ -1,0 +1,77 @@
+﻿@model IEnumerable<SocialMedia.Models.Dialog>
+@using Microsoft.AspNet.Identity;
+
+<div class="row">
+    <div class="col-sm-offset-2 col-sm-8 marginTop">
+        <br />
+        <div class="volumeStyle paddingLeft">
+            <h4>Диалоги</h4>
+        </div>
+        <div class="volumeStyle marginTop4px">
+            <table class="table messageScroll">
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        @if (item.SenderId == User.Identity.GetUserId())
+                        {
+                            <td class="col-sm-12">
+                                <div class="col-xs-3 col-sm-3 col-md-2">
+                                    @if (item.Receiver.ImageData != null)
+                                    {
+                                        <img class="userPhotoCircleStyleSmall" src="@Url.Action("GetImage","User", new {userId = item.ReceiverId})" />
+                                    }
+                                    else
+                                    {
+                                        <img class="userPhotoCircleStyleSmall" src="~/Content/Images/User/Avatar/UserPhoto.jpg" />
+                                    }
+                                </div>
+                                <div class="col-xs-9 col-sm-7">
+
+                                    <b>@item.Receiver.FirstName @item.Receiver.LastName</b>
+                                    <a href="@Url.Action("Details",new { id = item.ReceiverId})">
+                                        <div class="paddingLeft">
+
+                                            <p><b>From: @item.Messages.Last().Sender.FirstName @item.Messages.Last().Sender.LastName</b> </p>
+                                            <p>@item.Messages.Last().Text</p>
+
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="col-sm-12">
+                                <div class="col-xs-3 col-sm-3 col-md-2">
+                                    @if (item.Sender.ImageData != null)
+                                    {
+                                        <img class="userPhotoCircleStyleSmall" src="@Url.Action("GetImage","User", new {userId = item.SenderId})" />
+                                    }
+                                    else
+                                    {
+                                        <img class="userPhotoCircleStyleSmall" src="~/Content/Images/User/Avatar/UserPhoto.jpg" />
+                                    }
+                                </div>
+                                <div class="col-xs-9 col-sm-7">
+
+                                    <b>@item.Sender.FirstName @item.Sender.LastName</b>
+                                    <a href="@Url.Action("Details",new { id = item.SenderId})">
+                                        <div class="paddingLeft">
+
+                                            <p><b>From: @item.Messages.Last().Sender.FirstName @item.Messages.Last().Sender.LastName</b> </p>
+                                            <p>@item.Messages.Last().Text</p>
+
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </td>
+                        }
+
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

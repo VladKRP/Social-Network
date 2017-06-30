@@ -1,0 +1,47 @@
+﻿@model PagedList.IPagedList<SocialMedia.Models.ApplicationUser>
+@using PagedList.Mvc;
+
+
+    <table class="table volumeStyle">
+        @foreach (var item in Model)
+            {
+            <tr>
+
+                <td>
+                    @if (item.ImageData != null)
+                {
+                        <img class="userPhotoCircleStyle" src="@Url.Action("GetImage","User", new {userId = item.Id})" />
+                    }
+                    else
+                    {
+                        <img class="userPhotoCircleStyle" src="~/Content/Images/User/Avatar/UserPhoto.jpg" />
+                    }
+                </td>
+                <td class="col-xs-12">
+                    <div>
+                        <strong>
+                            <a href="@Url.Action("Details", "User", new { id = item.Id })" title="Просмотр пользователя">
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </a>
+                        </strong>
+                    </div>
+                    <div class="customIcon">
+                        <a href="@Url.Action("Create", "Friends",new { id = item.Id })"><i class="fa fa-user-plus  visible-xs" aria-hidden="true"></i></a>
+                        <a href= "@Url.Action("Create", "UserMessages", new { id = item.Id })" class="visible-xs">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>    
+                    </div>
+                </td>
+                <td class="text-right">
+                    @Html.ActionLink("Добавить в друзья", "Create", "Friends", new { id = item.Id }, new { @class = "btn btn-default hidden-xs volumeStyle" })
+                    @Html.ActionLink("Отправить сообщение", "Create","UserMessages", new { id = item.Id }, new { @class = "btn btn-default hidden-xs volumeStyle marginTop4px" })
+                        
+                </td>  
+            </tr>
+        }
+    </table>
+
+<div>
+@Html.PagedListPager(Model, page => Url.Action("GetPeople", new { page }))
+</div>

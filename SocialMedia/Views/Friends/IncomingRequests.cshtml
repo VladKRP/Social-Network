@@ -1,0 +1,54 @@
+﻿@model PagedList.IPagedList<SocialMedia.Models.Friend>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Заявки в друзья";
+}
+    
+<div class="col-sm-offset-2 col-sm-8 marginTop">
+    <div class="friendPageNavigation">
+        <a href="@Url.Action("Index")" class="btn btn-default volumeStyle">Друзья</a>
+        <a href="@Url.Action("IncomingRequests")" class="btn btn-default volumeStyle">Заявки в друзья</a>
+        <a href="@Url.Action("OutgoingRequests")" class="btn btn-default volumeStyle">Исходящие заявки</a>
+    </div>
+    
+    <div class="volumeStyle">
+        <table class="table ">
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @if (item.User.ImageData != null)
+                        {
+                            <img class="userPhotoCircleStyle" src="@Url.Action("GetImage","User", new {userId = item.UserId})" />
+                        }
+                        else
+                        {
+                            <img class="userPhotoCircleStyle" src="~/Content/Images/User/Avatar/UserPhotoSmallSize.jpg" />
+                        }
+                    </td>
+
+                    <td class="col-xs-8">
+                        <strong>
+                            <a href=@Url.Action("Details", "User", new { id = item.UserId }) title="Просмотр пользователя">
+                                @Html.DisplayFor(modelItem => item.User.FirstName)
+                                @Html.DisplayFor(modelItem => item.User.LastName)
+                            </a>
+                        </strong>
+                        <div class="customIcon">
+                            <a href=@Url.Action("ConfirmRequest",new { receiverId = item.UserId })><i class="fa fa-user-plus  visible-xs" aria-hidden="true"></i></a>
+                            <a href=@Url.Action("Delete",new { id = item.Id })><i class="fa fa-user-times visible-xs" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
+                  
+                    <td>
+                        @Html.ActionLink("Принять заявку", "ConfirmRequest", new { receiverId = item.UserId }, new { @class = "btn btn-default hidden-xs volumeStyle" })
+                        @Html.ActionLink("Отменить заявку", "Delete", new { id = item.Id }, new { @class = "btn btn-default hidden-xs volumeStyle" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    @Html.PagedListPager(Model, page => Url.Action("IncomingRequests",
+        new { page }))
+</div>

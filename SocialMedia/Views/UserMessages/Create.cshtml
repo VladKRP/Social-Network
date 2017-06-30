@@ -1,0 +1,33 @@
+﻿
+@model SocialMedia.Models.UserMessage
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="form-horizontal col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 marginTop">
+                <h3>Новое сообщение</h3>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.ReceiverId)
+                @Html.HiddenFor(model => model.SenderId)
+                @Html.Hidden("view", 1)
+                <div class="form-group">
+                    <h4>Отправить сообщение @Html.DisplayTextFor(model => model.Receiver.FirstName) @Html.DisplayTextFor(model => model.Receiver.LastName)</h4>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <textarea name="messageText" class="form-control volumeStyle marginTop" placeholder="Введите текст сообщения" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <input type="submit" value="Отправить" class="btn btn-default volumeStyle" />
+                    </div>
+                </div>
+            </div>
+         </div>
+         }
+

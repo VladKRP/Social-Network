@@ -1,0 +1,25 @@
+﻿@model PagedList.IPagedList<SocialMedia.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Поиск";
+}
+
+<div class="row">
+    <div class="col-sm-offset-2 col-sm-8 marginTop4px">
+        <div class="form-inline">
+            @using (Ajax.BeginForm("GetPeoplePartial", new AjaxOptions { UpdateTargetId = "peopleList", Url = Url.Action("GetPeoplePartial") }))
+            {
+                <h3>Найти друзей</h3>
+                <p>
+                    @Html.TextBox("SearchString", null, new { @class = "form-control volumeStyle" })
+                    <input class="btn btn-default volumeStyle" type="submit" value="Поиск" />
+                </p>
+            }
+        </div>
+        <div id="peopleList">
+            @Html.Action("GetPeoplePartial")
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

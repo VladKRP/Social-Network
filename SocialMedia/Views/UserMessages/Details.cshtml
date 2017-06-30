@@ -1,0 +1,77 @@
+﻿@model IEnumerable<SocialMedia.Models.UserMessage>
+@using Microsoft.AspNet.Identity;
+
+@{ 
+    string receiver = ViewBag.ReceiverId;
+}
+<div class="row">
+    <div class="col-sm-offset-2 col-sm-8 marginTop">
+        <br />
+        <div class="volumeStyle paddingLeft">
+            <h4>Сообщения</h4>
+        </div>
+        <div class="volumeStyle marginTop4px messageScroll">
+            @foreach (var msg in Model)
+            {
+                <div class="row">
+                    @if (msg.SenderId == User.Identity.GetUserId())
+                    {
+                        <div class="col-xs-12 col-sm-12 paddingTop">
+                            <div class="col-xs-offset-1 col-sm-offset-1 col-sm-2 col-xs-4">
+                                @if (msg.Sender.ImageData != null)
+                                {
+                                    <img class="userPhotoCircleStyleSmall volumeStyle" src="@Url.Action("GetImage","User", new {userId = msg.Sender.Id})" />
+                                }
+                                else
+                                {
+                                    <img class="userPhotoCircleStyleSmall volumeStyle" src="~/Content/Images/User/Avatar/UserPhoto.jpg" />
+                                }
+                            </div>
+                            <div class="col-xs-7 col-sm-7 currentUserMessage">
+                                <b>@msg.Sender.FirstName @msg.Sender.LastName</b>
+                                <span class="pull-right customDateTextSize">@msg.PostedDate</span>
+                                <p>@msg.Text</p>
+
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-xs-12 col-sm-12 paddingTop">
+
+                            <div class="col-xs-offset-1 col-sm-offset-1 col-sm-2 col-xs-4">
+                                @if (msg.Sender.ImageData != null)
+                                {
+                                    <img class="userPhotoCircleStyleSmall volumeStyle" src="@Url.Action("GetImage","User", new {userId = msg.SenderId})" />
+                                }
+                                else
+                                {
+                                    <img class="userPhotoCircleStyleSmall volumeStyle" src="~/Content/Images/User/Avatar/UserPhoto.jpg" />
+                                }
+                            </div>
+                            <div class="col-xs-7 col-sm-7">
+                                <b>@msg.Sender.FirstName @msg.Sender.LastName</b>
+                                <span class="pull-right customDateTextSize">@msg.PostedDate</span>
+                                <p>@msg.Text</p>
+
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div>
+
+            <div>
+                @using (Html.BeginForm("Create", "UserMessages", FormMethod.Post, new { @class = " form-inline" }))
+                {
+                    <textarea class="form-control volumeStyle marginTop4px" name="messageText" rows="1" placeholder="Введите текст"></textarea>
+                        @Html.Hidden("receiverId", receiver)
+                        @Html.Hidden("view", 3)
+                        <input type="submit" value="Сохранить" class="btn btn-default volumeStyle marginTop4px" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

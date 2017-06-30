@@ -1,0 +1,98 @@
+﻿@model SocialMedia.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Создание пользователя";
+}
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 marginTop ">
+        @using (Html.BeginForm("Create", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="volumeStyle">
+                <div class="form-horizontal col-xs-offset-1 col-xs-12">
+                    <h3 class="col-sm-offset-3 col-sm-7">@ViewBag.Title</h3>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Gender, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-6">
+                            @Html.RadioButtonFor(model => model.Gender, "женский")
+                            <span>женский</span>
+                            @Html.RadioButtonFor(model => model.Gender, "мужской")
+                            <span>мужской</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control volumeStyle" } })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Roles, "Роль", htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-6">
+                            @Html.DropDownListFor(model => model.Roles, ViewBag.Roles as SelectList, htmlAttributes: new { @class = "form-control volumeStyle" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <input type="submit" value="Создать" class="btn btn-default volumeStyle" />
+                            @Html.ActionLink("Вернуться к списку", "Index", null, new { @class = "btn btn-default volumeStyle" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

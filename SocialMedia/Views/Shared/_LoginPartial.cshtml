@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-xs-10 col-sm-10">
+
+            <ul class="hidden-xs nav navbar-nav navButtons rightNavbarPart">
+                <li>@Html.ActionLink("Люди", "GetPeople", "User")</li>
+                <li>@Html.ActionLink("Друзья", "Index", "Friends")</li>
+                <li>@Html.ActionLink("Сообщения", "Index", "UserMessages")</li>
+                <li>
+                    @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+            </ul>
+
+            <ul class="visible-xs nav navbar-nav navButtons rightNavbarPart">
+                <li><a href=@Url.Action("GetPeople", "User") title="Поиск"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                <li><a href=@Url.Action("Index", "UserMessages") title="Сообщения"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                <li><a href=@Url.Action("Index", "Friends") title="Друзья"><i class="fa fa-users" aria-hidden="true"></i></a></li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()" title="Выход"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+            </ul>
+
+        </div>
+    }
+}
+else
+{
+    <div class="col-xs-10 col-sm-10">
+        <ul class="nav navbar-nav navButtons rightNavbarPart">
+            <li>@Html.ActionLink("Регистрация", "Register", "Account")</li>
+            <li>@Html.ActionLink("Вход", "Login", "Account")</li>
+        </ul>
+    </div>
+}
